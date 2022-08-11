@@ -2,37 +2,36 @@ import './App.css';
 
 function App() {
   const Rank2 = [
-    {item: "5 Broken Box Pieces", reboot: 0.2729046, rebootNoMana: 0.2957331},
-    {item: "5x Oz Point Pouches", reboot: 0.1091619, rebootNoMana: 0.1182932},
-    {item: "3x Double Experience Coupons (15 minutes)", reboot: 0.1091619, rebootNoMana: 0.1182932},
-    {item: "Ring of Restraint", reboot: 0.0389864, rebootNoMana: 0.0422476},
-    {item: "Weapon Jump", reboot: 0.020273, rebootNoMana: 0.0219688},
-    {item: "Ultimatum Ring", reboot: 0.020273, rebootNoMana: 0.0219688},
-    {item: "Risk Taker Ring", reboot: 0.020273, rebootNoMana: 0.0219688},
-    {item: "Totalling Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Critical Damage Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Crisis HM Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Tower Boost Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Cleansing Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Overdrive Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Level Jump Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Health Cut Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Critical Defense Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
-    {item: "Limit Ring", reboot: 0.0194931, rebootNoMana: 0},
-    {item: "Durability Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
-    {item: "Clean Defense Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
     {item: "Berserker Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
-    {item: "Mana Cut Ring", reboot: 0.0191033, rebootNoMana: 0},
+    {item: "Broken Box Pieces", reboot: 0.2729046, rebootNoMana: 0.2957331},
+    {item: "Clean Defense Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Cleansing Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Clean Stance Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Crisis HM Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
     {item: "Crisis H Ring", reboot: 0.0191033, rebootNoMana: 0},
     {item: "Crisis M Ring", reboot: 0.0191033, rebootNoMana: 0},
+    {item: "Critical Damage Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Critical Defense Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
     {item: "Critical Shift Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
-    {item: "Stance Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
-    {item: "Clean Stance Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
-    {item: "Swift Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
-    {item: "Reflective Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Durability Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Double Experience Coupons", reboot: 0.1091619, rebootNoMana: 0.1182932},
+    {item: "Health Cut Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Level Jump Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Limit Ring", reboot: 0.0194931, rebootNoMana: 0},
+    {item: "Mana Cut Ring", reboot: 0.0191033, rebootNoMana: 0},
     {item: "Ocean Glow Earrings", reboot: 0.0038986, rebootNoMana: 0.0042248},
+    {item: "Overdrive Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Oz Point Pouches", reboot: 0.1091619, rebootNoMana: 0.1182932},
+    {item: "Reflective Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Ring of Restraint", reboot: 0.0389864, rebootNoMana: 0.0422476},
+    {item: "Risk Taker Ring", reboot: 0.020273, rebootNoMana: 0.0219688},
+    {item: "Stance Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Swift Ring", reboot: 0.0191033, rebootNoMana: 0.0207013},
+    {item: "Totalling Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Tower Boost Ring", reboot: 0.0194931, rebootNoMana: 0.0211238},
+    {item: "Ultimatum Ring", reboot: 0.020273, rebootNoMana: 0.0219688},
+    {item: "Weapon Jump", reboot: 0.020273, rebootNoMana: 0.0219688},
 ];
-
 
 function GenerateRing() {
     let totalChance = 0
@@ -78,6 +77,7 @@ function GenerateRing() {
     console.log(level)
   }
   GenerateLevel()
+  
   // function OpenBox() {
 
   // }
