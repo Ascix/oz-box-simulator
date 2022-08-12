@@ -1,4 +1,6 @@
+import { ProgressBar } from 'react-bootstrap';
 import './App.css';
+import Progress from './components/ProgressBar';
 
 function App() {
   const Rank2 = [
@@ -81,7 +83,9 @@ function GenerateRing() {
   // function OpenBox() {
 
   // }
-
+  const handleOpen = () => {
+    console.log('open')
+  }
 
   return (
     <div className="App">
@@ -102,6 +106,27 @@ function GenerateRing() {
               <label htmlFor="mana-no">No</label>
         </div>
       </form>
+
+      <div className="box-ui">
+          <div className="box-title">
+            ALICIA'S BOX
+          </div>
+        <div className="box">
+          <div className="opening">
+            OPENING A RANK 2 BOX
+          </div>
+          <div className="progress-bar">
+            <ProgressBar variant="danger" now={100} />
+          </div>
+          <div className="item">
+            <img src={`/items/BerserkerRing.png`} alt="ring"></img>
+          </div>
+          <div className="box-buttons">
+            <button onClick={handleOpen}>OPEN</button>
+            <button>CANCEL</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
