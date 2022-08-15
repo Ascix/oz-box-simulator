@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import './App.css';
 import Progress from './components/ProgressBar';
@@ -51,7 +52,7 @@ function GenerateRing() {
           break
         }
       }
-      console.log(prize)
+      return prize
     }
   GenerateRing()
   function GenerateLevel() {
@@ -76,15 +77,24 @@ function GenerateRing() {
         break
       }
     }
-    console.log(level)
+    return level
   }
-  GenerateLevel()
   
   // function OpenBox() {
 
   // }
+  const [rank, setRank] = useState("2");
+  const [text, setText] = useState(null);
+  
   const handleOpen = () => {
-    console.log('open')
+    const reward = GenerateRing()
+    let level = ""
+    if (reward === 'Broken Box Pieces' || reward === 'Oz Point Pouches' || reward === 'Ocean Glow Earrings' || reward === 'Double Experience Coupons') {
+
+    } else {
+      level = ` (${GenerateLevel()})`
+    }
+    setText(reward + level)
   }
 
   return (
@@ -106,14 +116,13 @@ function GenerateRing() {
               <label htmlFor="mana-no">No</label>
         </div>
       </form>
-
       <div className="box-ui">
           <div className="box-title">
             ALICIA'S BOX
           </div>
         <div className="box">
           <div className="opening">
-            OPENING A RANK 2 BOX
+            {text ? text : `OPENING A RANK ${rank} BOX`}
           </div>
           <div className="progress-bar">
             <ProgressBar variant="danger" now={100} />
@@ -122,8 +131,8 @@ function GenerateRing() {
             <img src={`/items/BerserkerRing.png`} alt="ring"></img>
           </div>
           <div className="box-buttons">
-            <button onClick={handleOpen}>OPEN</button>
-            <button>CANCEL</button>
+            <button className="open" onClick={handleOpen}>OPEN</button>
+            <button className="cancel">CANCEL</button>
           </div>
         </div>
       </div>

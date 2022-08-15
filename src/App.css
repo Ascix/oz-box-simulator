@@ -8,6 +8,7 @@
   width: 200px;
   height: 200px;
   margin: auto;
+  margin-top: 5%;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
   padding: 2px;
@@ -54,9 +55,23 @@
 
 .box-buttons {
   margin-top: 2px;
+  display: flex;
+  justify-content: center;
 }
 
 .box-buttons button {
-  /* border:none; */
-  margin: 2px;
+  border:1px solid rgb(165, 165, 165);
+  border-radius: 5px;
+  margin: 3px;
+  padding: 0;
+  width: 50px;
+}
+
+.open {
+  background-color: orange
+}
+
+.cancel {
+  background-color: rgb(117, 179, 25);
+  text-align: center;
 }
