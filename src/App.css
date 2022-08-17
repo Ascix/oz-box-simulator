@@ -71,6 +71,10 @@
   background-color: orange
 }
 
+.disabled {
+  background-color: rgb(189, 189, 189)
+}
+
 .cancel {
   background-color: rgb(117, 179, 25);
   text-align: center;

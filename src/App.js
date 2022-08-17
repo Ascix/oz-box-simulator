@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import './App.css';
-import Progress from './components/ProgressBar';
 
 function App() {
   const Rank2 = [
@@ -85,8 +84,30 @@ function GenerateRing() {
   // }
   const [rank, setRank] = useState("2");
   const [text, setText] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const [disabled, setDisabled] = useState(false)
+  
+  let progress = 0
+  function Progress() {
+    //4s
+    setTimeout(() => {
+      if (progress < 100) {
+        progress ++
+        setLoading(progress)
+        Progress()
+      } else {
+        setDisabled(false)
+      }
+    }, 30)
+  }
   
   const handleOpen = () => {
+    setLoading(null)
+    setText(null)
+    setDisabled(true)
+    setTimeout(() => {
+      Progress()
+    }, 450)
     const reward = GenerateRing()
     let level = ""
     if (reward === 'Broken Box Pieces' || reward === 'Oz Point Pouches' || reward === 'Ocean Glow Earrings' || reward === 'Double Experience Coupons') {
@@ -94,7 +115,15 @@ function GenerateRing() {
     } else {
       level = ` (${GenerateLevel()})`
     }
-    setText(reward + level)
+    setTimeout(() => {
+      setText(reward + level)
+    }, 4000)
+  }
+
+  const handleReset = () => {
+    setRank("2")
+    setText(null)
+    setLoading(null)
   }
 
   return (
@@ -125,14 +154,14 @@ function GenerateRing() {
             {text ? text : `OPENING A RANK ${rank} BOX`}
           </div>
           <div className="progress-bar">
-            <ProgressBar variant="danger" now={100} />
+            <ProgressBar variant="danger" now={loading} />
           </div>
           <div className="item">
             <img src={`/items/BerserkerRing.png`} alt="ring"></img>
           </div>
           <div className="box-buttons">
-            <button className="open" onClick={handleOpen}>OPEN</button>
-            <button className="cancel">CANCEL</button>
+            <button className={ disabled ? "open disabled" : "open" } onClick={handleOpen} disabled={disabled}>OPEN</button>
+            <button className="cancel" onClick={handleReset}>CANCEL</button>
           </div>
         </div>
       </div>
