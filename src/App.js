@@ -86,6 +86,8 @@ function GenerateRing() {
   const [text, setText] = useState(null);
   const [loading, setLoading] = useState(null);
   const [disabled, setDisabled] = useState(false)
+  const [item, setItem] = useState("Rank2")
+  const [rolled, setRolled] = useState(null)
   
   let progress = 0
   function Progress() {
@@ -116,14 +118,18 @@ function GenerateRing() {
       level = ` (${GenerateLevel()})`
     }
     setTimeout(() => {
+      setItem(reward.replace(/ /g, ''))
       setText(reward + level)
+      setRolled(true)
     }, 4000)
   }
 
   const handleReset = () => {
+    setItem("Rank2")
     setRank("2")
     setText(null)
     setLoading(null)
+    setRolled(null)
   }
 
   return (
@@ -144,6 +150,13 @@ function GenerateRing() {
               <input type="radio" id="mana-no" name="mana_or_none" value="No"/>
               <label htmlFor="mana-no">No</label>
         </div>
+        <div className="rankBox">
+          <h2>What box do you want to open?</h2>
+              <input type="radio" id="box-1" name="boxRank" value="1" defaultChecked/>
+              <label htmlFor="box-1">Rank 1</label>
+              <input type="radio" id="box-2" name="boxRank" value="2"/>
+              <label htmlFor="box-2">Rank 2</label>
+        </div>
       </form>
       <div className="box-ui">
           <div className="box-title">
@@ -157,11 +170,15 @@ function GenerateRing() {
             <ProgressBar variant="danger" now={loading} />
           </div>
           <div className="item">
-            <img src={`/items/BerserkerRing.png`} alt="ring"></img>
+            <img src={`/items/${item}.png`} alt="ring"></img>
           </div>
           <div className="box-buttons">
+            {
+              rolled ? <button className="ok" onClick={handleReset}>OK</button> : <>
             <button className={ disabled ? "open disabled" : "open" } onClick={handleOpen} disabled={disabled}>OPEN</button>
             <button className="cancel" onClick={handleReset}>CANCEL</button>
+              </>
+            }
           </div>
         </div>
       </div>

@@ -67,7 +67,7 @@
   width: 50px;
 }
 
-.open {
+.open, .ok {
   background-color: orange
 }
 
