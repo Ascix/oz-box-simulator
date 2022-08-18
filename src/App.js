@@ -13,7 +13,7 @@ function App() {
   const [item, setItem] = useState("Rank1");
   const [rolled, setRolled] = useState(null);
 
-  function GenerateRing() {
+  function GeneratePrize() {
     let totalChance = 0;
     
     if (rank === "Rank1") {
@@ -134,7 +134,7 @@ function App() {
     setTimeout(() => {
       Progress();
     }, 450);
-    const reward = GenerateRing();
+    const reward = GeneratePrize();
     let level = "";
     if (
       reward === "Broken Box Pieces" ||
@@ -170,6 +170,7 @@ function App() {
   return (
     <div className="App">
       <div className="title">Oz Ring Simulator</div>
+      <p>created by Audi#5187 on discord</p>
       <div className="box-ui">
         <div className="box-title">ALICIA'S BOX</div>
         <div className="box">
@@ -275,6 +276,9 @@ function App() {
             </div>
         </form>
       </Card>
+      <div className="info">
+        <p>All information and probability rates were taken from the KMS website located <a href="https://maplestory.nexon.com/Guide/OtherProbability/ringBox/aliciaRingBox">here</a>.</p>
+      </div>
     </div>
   );
 }
