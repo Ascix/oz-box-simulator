@@ -1,118 +1,20 @@
 import { useEffect, useState } from "react";
 import { Card, ProgressBar } from "react-bootstrap";
 import "./App.css";
+import { GenerateLevel } from "./components/GenerateLevel";
+import generatePrize from "./components/GeneratePrize";
 import HistoryScroll from "./components/HistoryScroll";
-import { Rank1 } from "./components/Rank1";
-import { Rank2 } from "./components/Rank2";
 
 function App() {
   const [rank, setRank] = useState("Rank1");
   const [mana, setMana] = useState("Yes");
-  const [quickRoll, setQuickRoll] = useState(false)
+  const [quickRoll, setQuickRoll] = useState(false);
   const [text, setText] = useState(null);
   const [loading, setLoading] = useState("100");
   const [disabled, setDisabled] = useState(false);
   const [item, setItem] = useState("Rank1");
   const [rolled, setRolled] = useState(null);
   const [history, setHistory] = useState([]);
-
-  function GeneratePrize() {
-    let totalChance = 0;
-
-    if (rank === "Rank1") {
-      if (mana === "Yes") {
-        for (let i = 0; i < Rank1.length; i++) {
-          totalChance += Rank1[i].reboot;
-        }
-        let RNG = Math.random() * totalChance;
-        let currentTotal = 0;
-        let prize = Rank2[0].item;
-        for (let i = 0; i < Rank1.length; i++) {
-          currentTotal += Rank1[i].reboot;
-          if (RNG < currentTotal) {
-            prize = Rank1[i].item;
-            break;
-          }
-        }
-        return prize;
-      } else {
-        for (let i = 0; i < Rank1.length; i++) {
-          totalChance += Rank1[i].noMana;
-        }
-        let RNG = Math.random() * totalChance;
-        let currentTotal = 0;
-        let prize = Rank2[0].item;
-        for (let i = 0; i < Rank1.length; i++) {
-          currentTotal += Rank1[i].noMana;
-          if (RNG < currentTotal) {
-            prize = Rank1[i].item;
-            break;
-          }
-        }
-        return prize;
-      }
-    }
-    if (rank === "Rank2") {
-      if (mana === "Yes") {
-        for (let i = 0; i < Rank2.length; i++) {
-          totalChance += Rank2[i].reboot;
-        }
-        let RNG = Math.random() * totalChance;
-        let currentTotal = 0;
-        let prize = Rank2[0].item;
-        for (let i = 0; i < Rank2.length; i++) {
-          currentTotal += Rank2[i].reboot;
-          if (RNG < currentTotal) {
-            prize = Rank2[i].item;
-            break;
-          }
-        }
-        return prize;
-      } else {
-        for (let i = 0; i < Rank2.length; i++) {
-          totalChance += Rank2[i].noMana;
-        }
-        let RNG = Math.random() * totalChance;
-        let currentTotal = 0;
-        let prize = Rank2[0].item;
-        for (let i = 0; i < Rank2.length; i++) {
-          currentTotal += Rank2[i].noMana;
-          if (RNG < currentTotal) {
-            prize = Rank2[i].item;
-            break;
-          }
-        }
-        return prize;
-      }
-    }
-  }
-  
-
-  function GenerateLevel() {
-    const RingLevel = [
-      { level: "1", chance: 0.41 },
-      { level: "2", chance: 0.28 },
-      { level: "3", chance: 0.2 },
-      { level: "4", chance: 0.11 },
-    ];
-
-    let totalChance = 0;
-    for (let i = 0; i < RingLevel.length; i++) {
-      totalChance += RingLevel[i].chance;
-    }
-    let RNG = Math.random() * totalChance;
-    let currentTotal = 0;
-    let level = RingLevel[0].level;
-    for (let i = 0; i < RingLevel.length; i++) {
-      currentTotal += RingLevel[i].chance;
-      if (RNG < currentTotal) {
-        level = RingLevel[i].level;
-        break;
-      }
-    }
-    return level;
-  }
-
 
   let progress = 0;
   function Progress() {
@@ -128,8 +30,12 @@ function App() {
     }, 30);
   }
 
+  // function Roulette() {
+  //     setItem(rank?.[Math.floor(Math.random() * rank.length)].item.replace(/ /g, ""))
+  // }
+
   const handleOpen = () => {
-    const reward = GeneratePrize();
+    const reward = generatePrize(rank, mana, undefined);
     let level = "";
     if (
       reward === "Broken Box Pieces" ||
@@ -150,16 +56,17 @@ function App() {
         Progress();
       }, 450);
       setTimeout(() => {
-        setItem(reward?.replace(/ /g, ""));
+        // Roulette()
         setText(reward + level);
         setHistory([...history, reward + level]);
         setRolled(true);
+        setItem(reward?.replace(/ /g, ""));
       }, 3900);
     }
   };
 
   useEffect(() => {
-    HistoryScroll()
+    HistoryScroll();
   }, [history]);
 
   const handleReset = () => {
@@ -171,14 +78,20 @@ function App() {
   const handleRank = (e) => {
     setRank(e.target.value);
     setItem(e.target.value);
+    setHistory([]);
   };
 
   const handleMana = (e) => {
     setMana(e.target.value);
+    setHistory([]);
   };
 
   const handleQuickRoll = (e) => {
     setQuickRoll(!quickRoll);
+  };
+
+  const handleClear = (e) => {
+    setHistory([]);
   };
 
   return (
@@ -196,7 +109,7 @@ function App() {
               <ProgressBar variant="danger" now={loading} />
             </div>
             <div className="item">
-              <img src={`/items/${item}.png`} alt="ring"></img>
+              <img src={`/items/${item}.png`} alt="item"></img>
             </div>
             <div className="box-buttons">
               {rolled ? (
@@ -225,11 +138,22 @@ function App() {
           <div className="box">
             <div className="pulls" id="pulls">
               {history.map((item, index) => {
-                return <div key={index}>{index + 1}. {item}</div>;
+                return (
+                  <div key={index}>
+                    {index + 1}. {item}
+                  </div>
+                );
               })}
             </div>
-            <div className="total">
-              Total Boxes Opened: {history.length}
+            <div className="history-bottom">
+              <img
+                src="reset-icon.png"
+                alt="reset-icon"
+                height="30px"
+                width="auto"
+                onClick={handleClear}
+              ></img>
+              <div className="total">Total Boxes Opened: {history.length}</div>
             </div>
           </div>
         </div>
@@ -238,10 +162,17 @@ function App() {
         <form>
           <h2>Settings</h2>
           <div>
-          <input className="form-check-input" onChange={handleQuickRoll} type="checkbox" value="" id="quickRoll" checked={quickRoll}/>
-          <label className="form-check-label" htmlFor="quickRoll">
-            Quick Roll
-          </label>
+            <input
+              className="form-check-input"
+              onChange={handleQuickRoll}
+              type="checkbox"
+              value=""
+              id="quickRoll"
+              checked={quickRoll}
+            />
+            <label className="form-check-label" htmlFor="quickRoll">
+              Quick Roll
+            </label>
           </div>
           <div className="server">
             <h4>Server</h4>
@@ -309,7 +240,6 @@ function App() {
               <label htmlFor="box-2">Rank 2</label>
             </div>
           </div>
-
         </form>
       </Card>
       <div className="info">

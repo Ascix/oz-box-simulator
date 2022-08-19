@@ -108,6 +108,17 @@
   background-color: rgb(66, 66, 66);
 }
 
+.history-bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.history-bottom img{
+  position: relative;
+  top: -8px;
+  cursor: pointer
+}
+
 .pulls {
   height: 155px;
   display: flex;
