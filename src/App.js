@@ -8,6 +8,7 @@ import { Rank2 } from "./components/Rank2";
 function App() {
   const [rank, setRank] = useState("Rank1");
   const [mana, setMana] = useState("Yes");
+  const [quickRoll, setQuickRoll] = useState(false)
   const [text, setText] = useState(null);
   const [loading, setLoading] = useState("100");
   const [disabled, setDisabled] = useState(false);
@@ -130,12 +131,6 @@ function App() {
   }, [history]);
 
   const handleOpen = () => {
-    setLoading(null);
-    setText(null);
-    setDisabled(true);
-    setTimeout(() => {
-      Progress();
-    }, 450);
     const reward = GeneratePrize();
     let level = "";
     if (
@@ -147,12 +142,22 @@ function App() {
     } else {
       level = ` (${GenerateLevel()})`;
     }
-    setTimeout(() => {
-      setItem(reward?.replace(/ /g, ""));
-      setText(reward + level);
+    if (quickRoll) {
       setHistory([...history, reward + level]);
-      setRolled(true);
-    }, 3900);
+    } else {
+      setLoading(null);
+      setText(null);
+      setDisabled(true);
+      setTimeout(() => {
+        Progress();
+      }, 450);
+      setTimeout(() => {
+        setItem(reward?.replace(/ /g, ""));
+        setText(reward + level);
+        setHistory([...history, reward + level]);
+        setRolled(true);
+      }, 3900);
+    }
   };
 
   const handleReset = () => {
@@ -168,6 +173,10 @@ function App() {
 
   const handleMana = (e) => {
     setMana(e.target.value);
+  };
+
+  const handleQuickRoll = (e) => {
+    setQuickRoll(!quickRoll);
   };
 
   return (
@@ -226,6 +235,12 @@ function App() {
       <Card className="d-flex mx-auto form" style={{ width: "50vw" }}>
         <form>
           <h2>Settings</h2>
+          <div onChange={handleQuickRoll}>
+          <input className="form-check-input" type="checkbox" value="" id="quickRoll" checked={quickRoll}/>
+          <label className="form-check-label" for="quickRoll">
+            Quick Roll
+          </label>
+          </div>
           <div className="server">
             <h4>Server</h4>
             <div className="radios">
@@ -292,6 +307,7 @@ function App() {
               <label htmlFor="box-2">Rank 2</label>
             </div>
           </div>
+
         </form>
       </Card>
       <div className="info">

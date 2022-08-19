@@ -120,6 +120,10 @@
   margin-top: 5%;
 }
 
+.form h2 {
+  margin: 0
+}
+
 .server {
   margin-top: 5%;
 }
