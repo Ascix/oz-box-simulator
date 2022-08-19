@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, ProgressBar } from "react-bootstrap";
 import "./App.css";
+import HistoryScroll from "./components/HistoryScroll";
 import { Rank1 } from "./components/Rank1";
 import { Rank2 } from "./components/Rank2";
 
@@ -12,10 +13,11 @@ function App() {
   const [disabled, setDisabled] = useState(false);
   const [item, setItem] = useState("Rank1");
   const [rolled, setRolled] = useState(null);
+  const [history, setHistory] = useState([]);
 
   function GeneratePrize() {
     let totalChance = 0;
-    
+
     if (rank === "Rank1") {
       if (mana === "Yes") {
         for (let i = 0; i < Rank1.length; i++) {
@@ -109,10 +111,6 @@ function App() {
     return level;
   }
 
-  // function OpenBox() {
-
-  // }
-
   let progress = 0;
   function Progress() {
     //4s
@@ -126,6 +124,10 @@ function App() {
       }
     }, 30);
   }
+
+  useEffect(() => {
+    setTimeout(HistoryScroll(), 1);
+  }, [history]);
 
   const handleOpen = () => {
     setLoading(null);
@@ -148,6 +150,7 @@ function App() {
     setTimeout(() => {
       setItem(reward?.replace(/ /g, ""));
       setText(reward + level);
+      setHistory([...history, reward + level]);
       setRolled(true);
     }, 3900);
   };
@@ -169,39 +172,54 @@ function App() {
 
   return (
     <div className="App">
-      <div className="title">Oz Ring Simulator</div>
+      <div className="title">Oz Box Simulator</div>
       <p>created by Audi#5187 on discord</p>
-      <div className="box-ui">
-        <div className="box-title">ALICIA'S BOX</div>
-        <div className="box">
-          <div className="opening">
-            {text ? text : `OPENING A RANK ${rank.charAt(4)} BOX`}
-          </div>
-          <div className="progress-bar">
-            <ProgressBar variant="danger" now={loading} />
-          </div>
-          <div className="item">
-            <img src={`/items/${item}.png`} alt="ring"></img>
-          </div>
-          <div className="box-buttons">
-            {rolled ? (
-              <button className="ok" onClick={handleReset}>
-                OK
-              </button>
-            ) : (
-              <>
-                <button
-                  className={disabled ? "open disabled" : "open"}
-                  onClick={handleOpen}
-                  disabled={disabled}
-                >
-                  OPEN
+      <div className="ui">
+        <div className="box-ui">
+          <div className="box-title">ALICIA'S BOX</div>
+          <div className="box">
+            <div className="opening">
+              {text ? text : `OPENING A RANK ${rank.charAt(4)} BOX`}
+            </div>
+            <div className="progress-bar">
+              <ProgressBar variant="danger" now={loading} />
+            </div>
+            <div className="item">
+              <img src={`/items/${item}.png`} alt="ring"></img>
+            </div>
+            <div className="box-buttons">
+              {rolled ? (
+                <button className="ok" onClick={handleReset}>
+                  OK
                 </button>
-                <button className="cancel" onClick={handleReset}>
-                  CANCEL
-                </button>
-              </>
-            )}
+              ) : (
+                <>
+                  <button
+                    className={disabled ? "open disabled" : "open"}
+                    onClick={handleOpen}
+                    disabled={disabled}
+                  >
+                    OPEN
+                  </button>
+                  <button className="cancel" onClick={handleReset}>
+                    CANCEL
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="history">
+          <div className="box-title">PULL HISTORY</div>
+          <div className="box">
+            <div className="pulls" id="pulls">
+              {history.map((item, index) => {
+                return <div key={index}>{item}</div>;
+              })}
+            </div>
+            <div className="total">
+              Total Boxes Opened: {history.length}
+            </div>
           </div>
         </div>
       </div>
@@ -273,11 +291,18 @@ function App() {
               />
               <label htmlFor="box-2">Rank 2</label>
             </div>
-            </div>
+          </div>
         </form>
       </Card>
       <div className="info">
-        <p>All information and probability rates were taken from the KMS website located <a href="https://maplestory.nexon.com/Guide/OtherProbability/ringBox/aliciaRingBox">here</a>.</p>
+        <p>
+          All information and probability rates were taken from the KMS website
+          located{" "}
+          <a href="https://maplestory.nexon.com/Guide/OtherProbability/ringBox/aliciaRingBox">
+            here
+          </a>
+          .
+        </p>
       </div>
     </div>
   );
