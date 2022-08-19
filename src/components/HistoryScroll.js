@@ -1,5 +1,5 @@
 function HistoryScroll(){
-    let element = document.getElementsByClassName("pulls");   
+    let element = document.getElementById("pulls");   
     element.scrollTop = element?.scrollHeight
 }
 

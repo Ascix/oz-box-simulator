@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  color: black;
 }
 
 .title {
@@ -78,6 +77,7 @@
   margin: 3px;
   padding: 0;
   width: 50px;
+  color: black;
 }
 
 .open, .ok {
@@ -109,7 +109,7 @@
 }
 
 .pulls {
-  height: 90%;
+  height: 155px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

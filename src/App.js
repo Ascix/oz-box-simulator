@@ -86,6 +86,7 @@ function App() {
       }
     }
   }
+  
 
   function GenerateLevel() {
     const RingLevel = [
@@ -112,6 +113,7 @@ function App() {
     return level;
   }
 
+
   let progress = 0;
   function Progress() {
     //4s
@@ -125,10 +127,6 @@ function App() {
       }
     }, 30);
   }
-
-  useEffect(() => {
-    setTimeout(HistoryScroll(), 1);
-  }, [history]);
 
   const handleOpen = () => {
     const reward = GeneratePrize();
@@ -159,6 +157,10 @@ function App() {
       }, 3900);
     }
   };
+
+  useEffect(() => {
+    HistoryScroll()
+  }, [history]);
 
   const handleReset = () => {
     setItem(rank);
@@ -223,7 +225,7 @@ function App() {
           <div className="box">
             <div className="pulls" id="pulls">
               {history.map((item, index) => {
-                return <div key={index}>{item}</div>;
+                return <div key={index}>{index + 1}. {item}</div>;
               })}
             </div>
             <div className="total">
@@ -235,9 +237,9 @@ function App() {
       <Card className="d-flex mx-auto form" style={{ width: "50vw" }}>
         <form>
           <h2>Settings</h2>
-          <div onChange={handleQuickRoll}>
-          <input className="form-check-input" type="checkbox" value="" id="quickRoll" checked={quickRoll}/>
-          <label className="form-check-label" for="quickRoll">
+          <div>
+          <input className="form-check-input" onChange={handleQuickRoll} type="checkbox" value="" id="quickRoll" checked={quickRoll}/>
+          <label className="form-check-label" htmlFor="quickRoll">
             Quick Roll
           </label>
           </div>
