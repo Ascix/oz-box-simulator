@@ -7,7 +7,9 @@ import HistoryScroll from "./components/HistoryScroll";
 
 function App() {
   const [rank, setRank] = useState("Rank1");
-  const [mana, setMana] = useState("Yes");
+  const [mana, setMana] = useState(true);
+  const [shiny, setShiny] = useState(false);
+  const [box, setBox] = useState("RANK 1");
   const [quickRoll, setQuickRoll] = useState(false);
   const [text, setText] = useState(null);
   const [loading, setLoading] = useState("100");
@@ -44,7 +46,7 @@ function App() {
       reward === "Double Experience Coupons"
     ) {
     } else {
-      level = ` (${GenerateLevel()})`;
+      level = ` (${GenerateLevel(shiny)})`;
     }
     if (quickRoll) {
       setHistory([...history, reward + level]);
@@ -76,13 +78,19 @@ function App() {
   };
 
   const handleRank = (e) => {
-    setRank(e.target.value);
-    setItem(e.target.value);
+    if (e.target.id === "ShinyRing") {
+      setShiny(true)
+    } else {
+      setShiny(false)
+    }
+    setBox(e.target.value)
+    setRank(e.target.id);
+    setItem(e.target.id);
     setHistory([]);
   };
 
   const handleMana = (e) => {
-    setMana(e.target.value);
+    setMana(!mana);
     setHistory([]);
   };
 
@@ -103,7 +111,7 @@ function App() {
           <div className="box-title">ALICIA'S BOX</div>
           <div className="box">
             <div className="opening">
-              {text ? text : `OPENING A RANK ${rank.charAt(4)} BOX`}
+              {text ? text : `OPENING A ${box} BOX`}
             </div>
             <div className="progress-bar">
               <ProgressBar variant="danger" now={loading} />
@@ -171,7 +179,7 @@ function App() {
               checked={quickRoll}
             />
             <label className="form-check-label" htmlFor="quickRoll">
-              Quick Roll
+              Quick Open
             </label>
           </div>
           <div className="server">
@@ -203,7 +211,7 @@ function App() {
                 type="radio"
                 id="yesMana"
                 name="mana_or_none"
-                value="Yes"
+                value={true}
                 defaultChecked
                 disabled={disabled}
               />
@@ -212,7 +220,7 @@ function App() {
                 type="radio"
                 id="noMana"
                 name="mana_or_none"
-                value="No"
+                value={false}
                 disabled={disabled}
               />
               <label htmlFor="noMana">No</label>
@@ -223,21 +231,37 @@ function App() {
             <div className="radios">
               <input
                 type="radio"
-                id="box-1"
+                id="Rank1"
                 name="boxRank"
-                value="Rank1"
+                value="RANK 1"
                 defaultChecked
                 disabled={disabled}
               />
-              <label htmlFor="box-1">Rank 1</label>
+              <label htmlFor="Rank1">Rank 1</label>
               <input
                 type="radio"
-                id="box-2"
+                id="Rank2"
                 name="boxRank"
-                value="Rank2"
+                value="RANK 2"
                 disabled={disabled}
               />
-              <label htmlFor="box-2">Rank 2</label>
+              <label htmlFor="Rank2">Rank 2</label>
+              <input
+                type="radio"
+                id="HiddenRing"
+                name="boxRank"
+                value="HIDDEN RING"
+                disabled={disabled}
+              />
+              <label htmlFor="HiddenRing">Hidden Ring Box</label>
+              <input
+                type="radio"
+                id="ShinyRing"
+                name="boxRank"
+                value="SHINY RING"
+                disabled={disabled}
+              />
+              <label htmlFor="ShinyRing">Shiny Ring Box</label>
             </div>
           </div>
         </form>
