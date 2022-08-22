@@ -1,14 +1,16 @@
+export const normal = [
+  { level: "1", chance: 0.41 },
+  { level: "2", chance: 0.28 },
+  { level: "3", chance: 0.2 },
+  { level: "4", chance: 0.11 },
+]
+
+export const special = [
+  { level: "3", chance: 0.75 },
+  { level: "4", chance: 0.25 },
+]
+
 export function GenerateLevel(shiny) {
-    const normal = [
-      { level: "1", chance: 0.41 },
-      { level: "2", chance: 0.28 },
-      { level: "3", chance: 0.2 },
-      { level: "4", chance: 0.11 },
-    ]
-    const special = [
-      { level: "3", chance: 0.75 },
-      { level: "4", chance: 0.25 },
-    ]
 
     let totalChance = 0;
     for (let i = 0; i < (!shiny ? normal.length : special.length); i++) {

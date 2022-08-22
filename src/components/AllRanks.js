@@ -1,6 +1,11 @@
 export const allRanks = {
   Rank1: {
     items: [
+      {
+        item: "2x Experience Coupons",
+        reboot: 0.083551,
+        noMana: 0.0908574,
+      },
       { item: "Berserker Ring", reboot: 0.018799, noMana: 0.020443 },
       { item: "Broken Box Pieces", reboot: 0.2819841, noMana: 0.3066438 },
       { item: "Clean Defense Ring", reboot: 0.018799, noMana: 0.020443 },
@@ -13,11 +18,6 @@ export const allRanks = {
       { item: "Critical Defense Ring", reboot: 0.0214099, noMana: 0.0232823 },
       { item: "Critical Shift Ring", reboot: 0.018799, noMana: 0.020443 },
       { item: "Durability Ring", reboot: 0.018799, noMana: 0.020443 },
-      {
-        item: "Double Experience Coupons",
-        reboot: 0.083551,
-        noMana: 0.0908574,
-      },
       { item: "Health Cut Ring", reboot: 0.0214099, noMana: 0.0232823 },
       { item: "Level Jump Ring", reboot: 0.0214099, noMana: 0.0232823 },
       { item: "Limit Ring", reboot: 0.0214099, noMana: 0 },
@@ -38,6 +38,11 @@ export const allRanks = {
   },
   Rank2: {
     items: [
+      {
+        item: "2x Experience Coupons",
+        reboot: 0.1091619,
+        noMana: 0.1182932,
+      },
       { item: "Berserker Ring", reboot: 0.0191033, noMana: 0.0207013 },
       { item: "Broken Box Pieces", reboot: 0.2729046, noMana: 0.2957331 },
       { item: "Clean Defense Ring", reboot: 0.0191033, noMana: 0.0207013 },
@@ -50,11 +55,6 @@ export const allRanks = {
       { item: "Critical Defense Ring", reboot: 0.0194931, noMana: 0.0211238 },
       { item: "Critical Shift Ring", reboot: 0.0191033, noMana: 0.0207013 },
       { item: "Durability Ring", reboot: 0.0191033, noMana: 0.0207013 },
-      {
-        item: "Double Experience Coupons",
-        reboot: 0.1091619,
-        noMana: 0.1182932,
-      },
       { item: "Health Cut Ring", reboot: 0.0194931, noMana: 0.0211238 },
       { item: "Level Jump Ring", reboot: 0.0194931, noMana: 0.0211238 },
       { item: "Limit Ring", reboot: 0.0194931, noMana: 0 },

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card, ProgressBar } from "react-bootstrap";
 import "./App.css";
-import { GenerateLevel } from "./components/GenerateLevel";
+import { allRanks } from "./components/AllRanks";
+import { GenerateLevel, normal, special } from "./components/GenerateLevel";
 import generatePrize from "./components/GeneratePrize";
 import HistoryScroll from "./components/HistoryScroll";
 
@@ -44,7 +45,7 @@ function App() {
       reward === "Broken Box Pieces" ||
       reward === "Oz Point Pouches" ||
       reward === "Ocean Glow Earrings" ||
-      reward === "Double Experience Coupons"
+      reward === "2x Experience Coupons"
     ) {
     } else {
       level = ` (${GenerateLevel(shiny)})`;
@@ -106,6 +107,9 @@ function App() {
   const handleTime = (e) => {
     setTime(e.target.value);
   };
+
+  const items = allRanks[rank].items
+  console.log(items)
 
   return (
     <div className="App">
@@ -170,10 +174,41 @@ function App() {
             </div>
           </div>
         </div>
+      <div className="rates">
+          <div className="box-title">RATES</div>
+          <div className="box">
+            <div className="rate">
+              Ring Rates
+            {
+            items.map((item) => {
+              return (
+                <div>
+                  {item.item} : {((mana ? item.reboot : item.noMana) * 100).toFixed(2)}%
+                </div>
+              )
+            })
+          }
+            <br></br>
+          <div>
+            Level Rates
+          { (!shiny ?
+          normal : special).map((rate) => {
+            return (
+            <div>
+              Level {rate.level} : {(rate.chance * 100).toFixed(2)}%
+            </div>
+            )
+          })
+
+          }
+          </div>
+            </div>
+          </div>
+      </div>
       </div>
       <div className="time">
         {history.length > 0 && <>
-        <p>You have wasted ~{Math.ceil(time*history.length/60)} hour(s) in the Tower of Oz.</p>
+        <p>You have wasted ~{Math.ceil(time*history.length/60)} {Math.ceil(time*history.length/60) < 2 ? "hour" : "hours"} of your life in the Tower of Oz.</p>
         <div>
           <img src="beartwerk.gif" alt="beartwerk"></img>
         </div>
