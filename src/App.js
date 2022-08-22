@@ -8,6 +8,7 @@ import HistoryScroll from "./components/HistoryScroll";
 function App() {
   const [rank, setRank] = useState("Rank1");
   const [mana, setMana] = useState(true);
+  const [time, setTime] = useState(45);
   const [shiny, setShiny] = useState(false);
   const [box, setBox] = useState("RANK 1");
   const [quickRoll, setQuickRoll] = useState(false);
@@ -102,6 +103,10 @@ function App() {
     setHistory([]);
   };
 
+  const handleTime = (e) => {
+    setTime(e.target.value);
+  };
+
   return (
     <div className="App">
       <div className="title">Oz Box Simulator</div>
@@ -166,6 +171,14 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="time">
+        {history.length > 0 && <>
+        <p>You have wasted ~{Math.ceil(time*history.length/60)} hour(s) in the Tower of Oz.</p>
+        <div>
+          <img src="beartwerk.gif" alt="beartwerk"></img>
+        </div>
+          </>}
+      </div>
       <Card className="d-flex mx-auto form" style={{ width: "50vw" }}>
         <form>
           <h2>Settings</h2>
@@ -181,6 +194,18 @@ function App() {
             <label className="form-check-label" htmlFor="quickRoll">
               Quick Open
             </label>
+          </div>
+          <div>
+            <label htmlFor="time">How long are your runs?</label>
+          <input
+                type="number"
+                id="time"
+                name="time"
+                placeholder="mins"
+                value={time}
+                onChange={handleTime}
+              />
+              <label htmlFor="time">mins</label>
           </div>
           <div className="server">
             <h4>Server</h4>

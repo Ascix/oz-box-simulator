@@ -135,6 +135,14 @@
   margin: 0
 }
 
+.time {
+  margin-top: 5%;
+}
+
+#time {
+  width: 45px
+}
+
 .server {
   margin-top: 5%;
 }
