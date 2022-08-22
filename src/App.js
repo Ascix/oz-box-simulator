@@ -81,11 +81,11 @@ function App() {
 
   const handleRank = (e) => {
     if (e.target.id === "ShinyRing") {
-      setShiny(true)
+      setShiny(true);
     } else {
-      setShiny(false)
+      setShiny(false);
     }
-    setBox(e.target.value)
+    setBox(e.target.value);
     setRank(e.target.id);
     setItem(e.target.id);
     setHistory([]);
@@ -108,14 +108,15 @@ function App() {
     setTime(e.target.value);
   };
 
-  const items = allRanks[rank].items
-  console.log(items)
+  const items = allRanks[rank].items;
+  console.log(items);
 
   return (
     <div className="App">
       <div className="title">Oz Box Simulator</div>
       <p>created by Audi#5187 on discord</p>
       <div className="ui">
+
         <div className="box-ui">
           <div className="box-title">ALICIA'S BOX</div>
           <div className="box">
@@ -174,45 +175,21 @@ function App() {
             </div>
           </div>
         </div>
-      <div className="rates">
-          <div className="box-title">RATES</div>
-          <div className="box">
-            <div className="rate">
-              Ring Rates
-            {
-            items.map((item) => {
-              return (
-                <div>
-                  {item.item} : {((mana ? item.reboot : item.noMana) * 100).toFixed(2)}%
-                </div>
-              )
-            })
-          }
-            <br></br>
-          <div>
-            Level Rates
-          { (!shiny ?
-          normal : special).map((rate) => {
-            return (
-            <div>
-              Level {rate.level} : {(rate.chance * 100).toFixed(2)}%
-            </div>
-            )
-          })
-
-          }
-          </div>
-            </div>
-          </div>
-      </div>
       </div>
       <div className="time">
-        {history.length > 0 && <>
-        <p>You have wasted ~{Math.ceil(time*history.length/60)} {Math.ceil(time*history.length/60) < 2 ? "hour" : "hours"} of your life in the Tower of Oz.</p>
-        <div>
-          <img src="beartwerk.gif" alt="beartwerk"></img>
-        </div>
-          </>}
+        {history.length > 0 && (
+          <>
+            <p>
+              You have wasted ~{Math.ceil((time * history.length) / 60)}{" "}
+              {Math.ceil((time * history.length) / 60) < 2 ? "hour" : "hours"}{" "}
+              of your life 
+              </p><p>in the Tower of Oz.
+            </p>
+            <div>
+              <img src="beartwerk.gif" alt="beartwerk"></img>
+            </div>
+          </>
+        )}
       </div>
       <Card className="d-flex mx-auto form" style={{ width: "50vw" }}>
         <form>
@@ -232,15 +209,15 @@ function App() {
           </div>
           <div>
             <label htmlFor="time">How long are your runs?</label>
-          <input
-                type="number"
-                id="time"
-                name="time"
-                placeholder="mins"
-                value={time}
-                onChange={handleTime}
-              />
-              <label htmlFor="time">mins</label>
+            <input
+              type="number"
+              id="time"
+              name="time"
+              placeholder="mins"
+              value={time}
+              onChange={handleTime}
+            />
+            <label htmlFor="time">mins</label>
           </div>
           <div className="server">
             <h4>Server</h4>
@@ -325,7 +302,34 @@ function App() {
             </div>
           </div>
         </form>
-      </Card>
+      </Card>        
+      <div className="rates">
+          <div className="box-title">RATES</div>
+          <div className="box">
+            <div className="rate">
+              Ring Rates
+              {items.map((item) => {
+                return (
+                  <div>
+                    {item.item} :{" "}
+                    {((mana ? item.reboot : item.noMana) * 100).toFixed(2)}%
+                  </div>
+                );
+              })}
+              <br></br>
+              <div>
+                Level Rates
+                {(!shiny ? normal : special).map((rate) => {
+                  return (
+                    <div>
+                      Level {rate.level} : {(rate.chance * 100).toFixed(2)}%
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="info">
         <p>
           All information and probability rates were taken from the KMS website
