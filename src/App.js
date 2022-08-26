@@ -195,7 +195,7 @@ function App() {
         </div>
       </div>
       <div className="time">
-        {history.length > 0 && (
+        {(history.length > 0 && box !== "SHINY RING" && box !== "HIDDEN RING") && (
           <>
             <p>
               You have wasted ~{Math.ceil((time * history.length) / 60)}{" "}
