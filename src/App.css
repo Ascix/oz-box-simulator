@@ -161,10 +161,20 @@
   margin-top: 5%;
 }
 
+.radios {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .radios input {
   margin: 5px
 }
 
 .info {
   margin-top: 3%;
+}
+
+.target {
+  color: yellow
 }

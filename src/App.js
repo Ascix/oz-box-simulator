@@ -10,6 +10,9 @@ function App() {
   const [rank, setRank] = useState("Rank1");
   const [mana, setMana] = useState(true);
   const [time, setTime] = useState(45);
+  const [target, setTarget] = useState(null);
+  const [targetItem, setTargetItem] = useState("Ring of Restraint");
+  const [targetLevel, setTargetLevel] = useState("none");
   const [shiny, setShiny] = useState(false);
   const [box, setBox] = useState("RANK 1");
   const [quickRoll, setQuickRoll] = useState(false);
@@ -108,15 +111,30 @@ function App() {
     setTime(e.target.value);
   };
 
+  const handleTargetItem = (e) => {
+    setTargetItem(e.target.value)
+    if (targetLevel === "none") {
+      setTarget(e.target.value)
+    } else {
+      setTarget(`${e.target.value} (${targetLevel})`)
+    }
+  }
+  const handleTargetLevel = (e) => {
+    setTargetLevel(e.target.value)
+    if (targetLevel === "none") {
+      setTarget(targetItem)
+    } else {
+      setTarget(`${targetItem} (${e.target.value})`)
+    }
+  }
+
   const items = allRanks[rank].items;
-  console.log(items);
 
   return (
     <div className="App">
       <div className="title">Oz Box Simulator</div>
       <p>created by Audi#5187 on discord</p>
       <div className="ui">
-
         <div className="box-ui">
           <div className="box-title">ALICIA'S BOX</div>
           <div className="box">
@@ -157,7 +175,7 @@ function App() {
             <div className="pulls" id="pulls">
               {history.map((item, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} className={(target === item ? "target" : "")}>
                     {index + 1}. {item}
                   </div>
                 );
@@ -182,16 +200,16 @@ function App() {
             <p>
               You have wasted ~{Math.ceil((time * history.length) / 60)}{" "}
               {Math.ceil((time * history.length) / 60) < 2 ? "hour" : "hours"}{" "}
-              of your life 
-              </p><p>in the Tower of Oz.
+              of your life
             </p>
+            <p>in the Tower of Oz.</p>
             <div>
               <img src="beartwerk.gif" alt="beartwerk"></img>
             </div>
           </>
         )}
       </div>
-      <Card className="d-flex mx-auto form" style={{ width: "50vw" }}>
+      <Card className="d-flex mx-auto form" style={{ width: "55vw" }}>
         <form>
           <h2>Settings</h2>
           <div>
@@ -218,6 +236,23 @@ function App() {
               onChange={handleTime}
             />
             <label htmlFor="time">mins</label>
+          </div>
+          <div>
+              <label htmlFor="targetItem">Target Item: </label>
+                  <select id="targetItem" name="targetItem" onChange={handleTargetItem}>
+                    <option value="Ring of Restraint">Ring of Restraint</option>
+                    <option value="Weapon Jump">Weapon Jump</option>
+                  </select>
+          </div>
+          <div>
+              <label htmlFor="targetLevel">Target Level: </label>
+                  <select id="targetLevel" name="targetLevel" onChange={handleTargetLevel}>
+                    <option value="none">None</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
           </div>
           <div className="server">
             <h4>Server</h4>
@@ -266,70 +301,78 @@ function App() {
           <div className="rankRadios" onChange={handleRank}>
             <h4>Box Rank</h4>
             <div className="radios">
-              <input
-                type="radio"
-                id="Rank1"
-                name="boxRank"
-                value="RANK 1"
-                defaultChecked
-                disabled={disabled}
-              />
-              <label htmlFor="Rank1">Rank 1</label>
-              <input
-                type="radio"
-                id="Rank2"
-                name="boxRank"
-                value="RANK 2"
-                disabled={disabled}
-              />
-              <label htmlFor="Rank2">Rank 2</label>
-              <input
-                type="radio"
-                id="HiddenRing"
-                name="boxRank"
-                value="HIDDEN RING"
-                disabled={disabled}
-              />
-              <label htmlFor="HiddenRing">Hidden Ring Box</label>
-              <input
-                type="radio"
-                id="ShinyRing"
-                name="boxRank"
-                value="SHINY RING"
-                disabled={disabled}
-              />
-              <label htmlFor="ShinyRing">Shiny Ring Box</label>
-            </div>
-          </div>
-        </form>
-      </Card>        
-      <div className="rates">
-          <div className="box-title">RATES</div>
-          <div className="box">
-            <div className="rate">
-              Ring Rates
-              {items.map((item) => {
-                return (
-                  <div>
-                    {item.item} :{" "}
-                    {((mana ? item.reboot : item.noMana) * 100).toFixed(2)}%
-                  </div>
-                );
-              })}
-              <br></br>
               <div>
-                Level Rates
-                {(!shiny ? normal : special).map((rate) => {
-                  return (
-                    <div>
-                      Level {rate.level} : {(rate.chance * 100).toFixed(2)}%
-                    </div>
-                  );
-                })}
+                <input
+                  type="radio"
+                  id="Rank1"
+                  name="boxRank"
+                  value="RANK 1"
+                  defaultChecked
+                  disabled={disabled}
+                />
+                <label htmlFor="Rank1">Rank 1</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="Rank2"
+                  name="boxRank"
+                  value="RANK 2"
+                  disabled={disabled}
+                />
+                <label htmlFor="Rank2">Rank 2</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="HiddenRing"
+                  name="boxRank"
+                  value="HIDDEN RING"
+                  disabled={disabled}
+                />
+                <label htmlFor="HiddenRing">Hidden Ring Box</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="ShinyRing"
+                  name="boxRank"
+                  value="SHINY RING"
+                  disabled={disabled}
+                />
+                <label htmlFor="ShinyRing">Shiny Ring Box</label>
               </div>
             </div>
           </div>
+        </form>
+      </Card>
+      <div className="rates">
+        <div className="box-title">RATES</div>
+        <div className="box">
+          <div className="rate">
+            Ring Rates
+            {items.map((item) => {
+              return (
+                <div>
+                  {item.item} :{" "}
+                  {((mana ? item.reboot : item.noMana) * 100).toFixed(2)}%
+                </div>
+              );
+            })}
+            <br></br>
+            <div>
+              Level Rates
+              {(!shiny ? normal : special).map((rate) => {
+                return (
+                  <div>
+                    Level {rate.level} : {(rate.chance * 100).toFixed(2)}%
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
+      </div>
       <div className="info">
         <p>
           All information and probability rates were taken from the KMS website
