@@ -11,7 +11,7 @@ function App() {
   const [mana, setMana] = useState(true);
   const [time, setTime] = useState(45);
   const [target, setTarget] = useState(null);
-  const [targetItem, setTargetItem] = useState("Ring of Restraint");
+  const [targetItem, setTargetItem] = useState("none");
   const [targetLevel, setTargetLevel] = useState("none");
   const [shiny, setShiny] = useState(false);
   const [box, setBox] = useState("RANK 1");
@@ -121,7 +121,7 @@ function App() {
   }
   const handleTargetLevel = (e) => {
     setTargetLevel(e.target.value)
-    if (targetLevel === "none") {
+    if (e.target.value === "none") {
       setTarget(targetItem)
     } else {
       setTarget(`${targetItem} (${e.target.value})`)
@@ -225,6 +225,7 @@ function App() {
               Quick Open
             </label>
           </div>
+          <br></br>
           <div>
             <label htmlFor="time">How long are your runs?</label>
             <input
@@ -237,9 +238,12 @@ function App() {
             />
             <label htmlFor="time">mins</label>
           </div>
+          <br></br>
+            This will highlight item in pull history.
           <div>
               <label htmlFor="targetItem">Target Item: </label>
                   <select id="targetItem" name="targetItem" onChange={handleTargetItem}>
+                    <option value="none" default>Select an option</option>
                     <option value="Ring of Restraint">Ring of Restraint</option>
                     <option value="Weapon Jump">Weapon Jump</option>
                   </select>
@@ -247,7 +251,7 @@ function App() {
           <div>
               <label htmlFor="targetLevel">Target Level: </label>
                   <select id="targetLevel" name="targetLevel" onChange={handleTargetLevel}>
-                    <option value="none">None</option>
+                    <option value="none" default>Select an option</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
