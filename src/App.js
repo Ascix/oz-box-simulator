@@ -21,6 +21,7 @@ function App() {
   const [disabled, setDisabled] = useState(false);
   const [item, setItem] = useState("Rank1");
   const [rolled, setRolled] = useState(null);
+  const [average, setAverage] = useState(null);
   const [history, setHistory] = useState([]);
 
   let progress = 0;
@@ -126,6 +127,36 @@ function App() {
     } else {
       setTarget(`${targetItem} (${e.target.value})`)
     }
+  }
+
+  function generateStatistics() {
+    let rolls = []
+    let count = 0
+    for (let i = 0; i < 100000; i++) {
+      const reward = generatePrize(rank, mana, undefined);
+      let level = "";
+      if (
+        reward === "Broken Box Pieces" ||
+        reward === "Oz Point Pouches" ||
+        reward === "Ocean Glow Earrings" ||
+        reward === "2x Experience Coupons"
+      ) {
+      } else {
+        level = ` (${GenerateLevel(shiny)})`;
+      }
+      rolls.push(reward + level)
+    }
+    rolls.forEach(roll => {
+      if (roll === `${target}`) {
+        count++
+      }
+    })
+    setAverage(count)
+  }
+
+  const handleStatistics = (e) => {
+    e.preventDefault()
+    generateStatistics()
   }
 
   const items = allRanks[rank].items;
@@ -258,6 +289,14 @@ function App() {
                     <option value="4">4</option>
                   </select>
           </div>
+          <br></br>
+          {average && <div>
+        Average: 1 in {Math.ceil(100000/average)} runs
+      </div>
+}
+      <button onClick={handleStatistics}>
+        Generate 100000 Box Average
+      </button>
           <div className="server">
             <h4>Server</h4>
             <div className="radios">
