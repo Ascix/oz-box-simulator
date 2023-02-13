@@ -234,9 +234,6 @@ function App() {
               of your life
             </p>
             <p>in the Tower of Oz.</p>
-            <div>
-              <img src="beartwerk.gif" alt="beartwerk"></img>
-            </div>
           </>
         )}
       </div>
